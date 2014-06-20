@@ -1,0 +1,107 @@
+The UnitsC++ Library
+--------------------
+    https://code.google.com/p/unitscpp/
+    By someonesdad1@gmail.com
+    Last updated 20 Jun 2014
+
+----------------------------------------------------------------------
+What it is and why you might want to use it
+
+    It's a python script that helps you generate types of units for
+    C++ code.  To do so, you edit a configuration text file that
+    defines the units you want to use and run the unitscpp.py script
+    that uses this configuration file to generate a C++ include file.
+    Your C++ project then includes this include file.
+
+----------------------------------------------------------------------
+Quick start
+    
+    - You must have Mercurial installed on your machine and be
+      connected to the Internet.
+    - Go to the directory where you want the repository installed and
+      type the command
+      
+          hg clone https://someonesdad1@code.google.com/p/unitscpp/
+
+    - This will construct a unitscpp directory.  Change to that
+      directory and type the command 'make'.  This will construct the
+      examples.  You can run them if you wish.
+    - Read the unitscpp.pdf file for more details.
+
+----------------------------------------------------------------------
+20 Jun 2014 update:
+
+    - Moved package's contents to the project's Mercurial code
+      repository.
+    - Deprecated the zip file under Downloads.
+    - Updated the unitscpp.py script to run properly under python
+      versions 2.7.6 and 3.4.0.
+    - Changed the makefile to run under Linux.
+    - Updated the project's home page text.
+    - Tested the contents on an Xubuntu 14.04 system using python
+      2.7.6 and 3.4.0 and g++ (Ubuntu 4.8.2-19ubuntu1) 4.8.2.
+    - Included the Open Office source file used to generate the
+      documentation PDF.
+
+----------------------------------------------------------------------
+Files in the Mercurial repository
+
+    0license            License under which the library is released
+    0readme             This file
+    area.cpp            Part of demo program
+    demo.cfg            Part of demo program
+    demo.cpp            Part of demo program
+    unitscpp.py         Script to generate library's include file
+    makefile            GNU makefile to make demo and test programs
+    test_constants.cpp  Part of unit test program
+    test_units.cfg      Part of unit test program
+    test_units.cpp      Part of unit test program
+    unitscpp.odt        Documentation source (Open Office format)
+    unitscpp.pdf        Documentation
+
+Once you understand how the library works, the only file you really
+need is the unitscpp.py script.
+
+----------------------------------------------------------------------
+Building the demo program
+-------------------------
+
+A working python installation is needed on your system.  You must have
+a python version of 2.0 or later.
+
+If you have a GNU-compatible make and g++, you can just use the
+makefile to build the demo program and the tests by running make.
+
+If you just want to compile from the command line, execute these commands:
+
+    python unitscpp.py demo.cfg
+    cxx demo.cpp area.cpp
+
+where cxx is the command for your C++ compiler.
+
+----------------------------------------------------------------------
+To run the unit test
+--------------------
+
+The unit test is not intended to test every possible case; in particular,
+the cases where the code SHOULDN'T compile are not tested thoroughly (in
+fact, there's only one test case).
+
+Here's how to build and run the tests
+
+1.  Test for successful operations
+    
+    python unitscpp.py test_units.cfg
+    cxx -o test_units test_units.cpp
+    test_units
+
+    The test passes if there are no assert messages.
+    Similarly, build and run test_constants.cpp.
+
+2.  Test that the compiler detects a unit mismatch
+
+    python unitscpp.py test_units.cfg
+    cxx -DWILLNOTCOMPILE -o test_units test_units.cpp
+
+    You should get a compilation error.
+
